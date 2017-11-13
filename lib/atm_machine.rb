@@ -14,4 +14,8 @@ class AtmMachine
     raise NoSufficientFoundsError if amount > @balance
     @balance -= amount
   end
+  
+  def deposit(amount, pin)
+    @balance += amount
+  end
 end
