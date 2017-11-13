@@ -19,12 +19,12 @@ class AtmMachine
   def withdraw(amount, pin)
     raise AccountEmptyError unless @balance > 0
     raise NoSufficientFoundsError if amount > @balance
-    raise WrongPinError unless @authorized_user = @pin == pin
+    authorize(pin)
     @balance -= amount if @authorized_user
   end
 
   def deposit(amount, pin)
-    raise WrongPinError unless @authorized_user = @pin == pin
+    authorize(pin)
     @balance += amount if @authorized_user
   end
 
@@ -34,5 +34,11 @@ class AtmMachine
 
   def authorized_user
     @authorized_user
+  end
+
+  private
+
+  def authorize(pin)
+    raise WrongPinError unless @authorized_user = pin == @pin
   end
 end
